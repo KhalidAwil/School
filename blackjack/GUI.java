@@ -39,9 +39,7 @@ import javax.swing.SwingConstants;
 public class GUI extends JFrame implements ActionListener {
 
  /*
-  *
   * Components of GUI
-  * 
   */
 
  JLabel card1;
@@ -51,7 +49,10 @@ public class GUI extends JFrame implements ActionListener {
  JLabel card4;
  static JLabel[] playerCards;
  
- ////////////////////////////////////////////////////bet and choice flags
+ /**
+  * Bet and choice flags
+  * */
+  
  boolean bet = false;
  boolean choice = false;
 
@@ -72,6 +73,7 @@ public class GUI extends JFrame implements ActionListener {
  // Initializing the GridBagConstraints for the cards.
  GridBagConstraints gbc3 = new GridBagConstraints();
  GridBagConstraints gbc4 = new GridBagConstraints();
+
 // Counter that points to the current card to be added.
  private int cardCount = -1;
  private int cardCountD = -1;
@@ -100,20 +102,24 @@ public class GUI extends JFrame implements ActionListener {
  // Initializing the Message box to hold messages. 
  JTextField[] msgArray = new JTextField[]{msg1,msg2,msg3,msg4,msg5,msg6};
 
-// Counter to point to next message.
+ // Counter to point to next message.
  public int msgCount = 0 ;
  
 
  Client client;
 
- 
+/**
+ *
+ * Contructor for GUI
+ * 
+ **/
  public GUI(){
  
-  /*
-   * Constructor for GUI
-   */
 
-  ///Frame/////////////////////////////////////////////
+  /**
+   * Frame Component
+   * */
+   
   super("BlackJack");  
 
   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,7 +142,6 @@ public class GUI extends JFrame implements ActionListener {
   bettingArea = new JPanel(new GridBagLayout());
   messages = new JPanel();  
   messages.setLayout(new BoxLayout(messages,BoxLayout.PAGE_AXIS));
-
 
 
   //Adding the panels to the Frame.
@@ -179,11 +184,11 @@ public class GUI extends JFrame implements ActionListener {
   dealer.setBorder(BorderFactory.createTitledBorder("Dealer's Hand"));
   player.setBorder(BorderFactory.createTitledBorder("Player's Hand"));
 
-  ////////End of Frame/////////////////////////////////////////////////
 
-  //score's Interface //////////////////////////////
-  /////////////////////////////////////////////////
-
+  /**
+   * Score board component
+   **/
+   
   hit = new JButton("Hit");
   stay = new JButton("Stay");
   plrScore = new JTextField();
@@ -222,8 +227,10 @@ public class GUI extends JFrame implements ActionListener {
   scores.add(stay,gbc); 
 
 
-  //bettingArea's Interface //////////////////////////
-  ///////////////////////////////////////////////////
+ /**
+  * Betting area component
+  **/
+  
   increaseBet = new JButton("Increase");
   userName = new JTextField(this.retrieveName()); 
   decreaseBet = new JButton("Decrease");
@@ -270,9 +277,10 @@ public class GUI extends JFrame implements ActionListener {
   gbc.gridy = 0; 
   bettingArea.add(userName,gbc);
 
-  ////messages Interface///////////////////// 
+ /**
+  * Message box component
+  **/
 
-  
   msg1.setEditable(false);
   msg2.setEditable(false);
   msg3.setEditable(false);
@@ -292,9 +300,10 @@ public class GUI extends JFrame implements ActionListener {
   messages.add(Box.createRigidArea( new Dimension(0,3)));
   messages.add(msg6);
 
-
-  ////dealer's Interface/////////////////////////
-  //////////////////////////////////////////////
+ /**
+ * Dealers Interface
+ **/
+ 
   card1 = new JLabel();
   card2 = new JLabel();
   
@@ -317,15 +326,18 @@ public class GUI extends JFrame implements ActionListener {
   gbc4.gridy=0;
   dealer.add(card2,gbc4);
 
-  //Visibility of Panels & JFrame.
+  // Visibility of Panels & JFrame.
 
   scores.setVisible(true);
   bettingArea.setVisible(true);
   messages.setVisible(true);
   dealer.setVisible(true);
 
-  ////Player's Interface/////////////////////////
-  //////////////////////////////////////////////
+ /**
+  *
+  * Players Interface
+  * 
+  **/
 
   card3 = new JLabel();
   card4 = new JLabel();
@@ -355,12 +367,8 @@ public class GUI extends JFrame implements ActionListener {
   messages.setVisible(true);
   dealer.setVisible(true);
   player.setVisible(true); 
-  
- 
  }
 
- //GUI Methods/////////////////////////////////////////
- /////////////////////////////////////////////////////
  /*
   ** Returns an ImageIcon, or null if the path was invalid.
   * 
@@ -379,8 +387,7 @@ public class GUI extends JFrame implements ActionListener {
   }
  }
 
- // Adds a card onto the hand of the Player.
-//////////////////////////////////////////
+// Adds a card to a players hand
   public void addPlayerCard(int card){
   
   Integer x = new Integer(card);
@@ -390,8 +397,7 @@ public class GUI extends JFrame implements ActionListener {
   
  }
  
-  // Adds a card onto the hand of the Dealer. 
- ////////////////////////////////////////////
+// Adds a card to a dealers hand
   public void addDealerCard(int card){
   
   Integer x = new Integer(card);
@@ -403,8 +409,7 @@ public class GUI extends JFrame implements ActionListener {
   
 
 
- // Makes a bet and sends it to the server.
- ///////////////////////////////////////////
+// Makes a bet for a player
  public void makeBet(){ 
 
   String x = playerBet.getText(); // Grabs the text in the JTextField..
@@ -428,9 +433,7 @@ public class GUI extends JFrame implements ActionListener {
   }
  }
  
- //Makes a choice and sends it to the server.
- ////////////////////////////////////////////
-
+// Makes a choice and sends it to the server
  public void bet() {
    bet = true;
  }
@@ -439,8 +442,7 @@ public class GUI extends JFrame implements ActionListener {
    choice = true;
  }
 
- //Displays an action on the Message board.
- ///////////////////////////////////////////
+// Displays a message on the message board
  public void display(String message){
 
    msgArray[msgCount%msgArray.length].setText(message);
@@ -448,8 +450,7 @@ public class GUI extends JFrame implements ActionListener {
   
   }
  
-//Adding a card to a hand , given the icon.
-////////////////////////////////////////////
+// Display specific card in player's hand
  private void addPlayerCard(ImageIcon icon){ 
    
    if(cardCount+1 < playerCards.length){
@@ -480,8 +481,7 @@ public class GUI extends JFrame implements ActionListener {
  }
  
  
- // Resize method which increases the cardholder's hand by 1.
- ////////////////////////////////////////////////////////////
+ // Resize method that resizes a cardholder's hand by 1
  public JLabel[] resizePlayer( JLabel[] cards){
  
   JLabel[] cards2 = new JLabel[cardCount+3];
@@ -496,9 +496,8 @@ public class GUI extends JFrame implements ActionListener {
   return cards;
  }
  
-//Adding a card to a hand , given the icon.
-////////////////////////////////////////////
- 
+
+ // Display a card in the dealer's hand
  private void addDealerCard(ImageIcon icon){ 
    if(cardCountD+1 < dealerCards.length){
     cardCountD++; // Set pointer to the current card.
@@ -519,8 +518,7 @@ public class GUI extends JFrame implements ActionListener {
    }
 
  }
-// Resize method which increases the cardholder's hand by 1.
- ////////////////////////////////////////////////////////////
+ // Resize method which increases the cardholder's hand by 1.
   public JLabel[] resizeDealer( JLabel[] cards){
  
   JLabel[] cards2 = new JLabel[cardCountD+3];
@@ -534,22 +532,18 @@ public class GUI extends JFrame implements ActionListener {
   cards = cards2; 
   return cards;
   }
- //Accesor Method that retrieves player name.
- ///////////////////////////////////////////
- public String getPlayerName(){
  
+ //Accesor Method that retrieves player name.
+ public String getPlayerName(){
  return this.playerName;
-
  }
 
-//Accesor method that sets player name.
-///////////////////////////////////////
+// Accesor method that sets player name.
  public void setPlayerName(){
  this.playerName = retrieveName(); 
  }
  
- //Updates the Player's Score every round.
- ////////////////////////////////////////
+ // Updates the Player's Score every round.
   public void updatePlayerScore(int score){
   Integer x = new Integer(score);
   plrScore.setText(x.toString()); 
@@ -557,33 +551,26 @@ public class GUI extends JFrame implements ActionListener {
    
  }
  
- //Updates the Dealer's Score every round.
- /////////////////////////////////////////
+ // Updates the Dealer's Score every round. 
   public void updateDealerScore(int score){
   Integer x = new Integer(score);
   dlrScore.setText(x.toString()); 
   dlrScore.setHorizontalAlignment(JTextField.CENTER);
  }
  
-  //Retrieve User Name/////////////////////
- ///////////////////////////////////////// 
- 
+  // Retrieve User Name
   public String retrieveName(){
   
   return( this.client.getUserName() );
   }
   
   
- //Displayed when user has won////////////////
- //////////////////////////////////////////////
- 
+ //Displayed when user has won
   public void won(){
     display("You have won!!");
   }
   
-//Action method to respond to certain button presses.
-/////////////////////////////////////////////////////
-
+// Action method to respond to certain button presses.
  public void actionPerformed(ActionEvent e) {
 
    if(bet) {
@@ -649,8 +636,6 @@ public class GUI extends JFrame implements ActionListener {
   game.addPlayerCard(52);
   game.addPlayerCard(51);
   game.pack();
-
-
 }
 } 
 
